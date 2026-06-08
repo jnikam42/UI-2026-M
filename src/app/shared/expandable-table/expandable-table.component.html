@@ -1,0 +1,128 @@
+<div style="display: flex;">
+    <mat-form-field style="padding-left: 10px;" *ngIf="filterLabel">
+      <mat-label>{{filterLabel}}</mat-label>
+      <input matInput (keyup)="applyFilter($event)" [(ngModel)]="filterText" name="filter" autocomplete="off"
+        style="padding-bottom:0.4em">
+    </mat-form-field>
+  </div>
+  <div class="example-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows>
+  
+      <span *ngFor="let column of columnsToDisplay">
+  
+        <ng-container *ngIf="column.name != 'walletAddress' && column.name!='wallet' && column.name !='customerStatus'"
+          [matColumnDef]="column?.name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column?.label}} </th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="column?.name.indexOf('customerDetails.customerProperties.') == 0">
+              {{element['customerDetails']['customerProperties'][column.name.substring('customerDetails.customerProperties.'.length)]}}
+            </span>
+            <span *ngIf="column?.name.indexOf('.') == -1">{{element[column?.name]}} </span>
+          </td>
+        </ng-container>
+      </span>
+  
+      <ng-container matColumnDef="walletAddress">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Wallet</th>
+        <td mat-cell *matCellDef="let row">
+          <div *ngFor="let wt of row.customerDetails?.walletAddress.split(';')">
+            <a class="hyperlink" (click)="onAnchorClick(row)">{{wt}}</a>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="wallet">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Wallet </th>
+        <td mat-cell *matCellDef="let row">
+          <div *ngFor="let wt of row.customerDetails?.walletAddress.split(';')">
+            <a *ngIf="row.customerDetails.status == 'VERIFIED'" class="hyperlink" (click)="onAnchorClick(row)"
+              style="cursor:pointer">{{wt}}</a>
+            <span *ngIf="row.customerDetails.status == 'BLOCK'">{{wt}}</span>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="customerStatus">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Active</th>
+        <td mat-cell *matCellDef="let row">
+          {{row.customerDetails.derivedCustomerStatus}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="customerProperties">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status Update Date</th>
+        <td mat-cell *matCellDef="let row">
+          {{row.customerDetails.customerProperties.MERCHANT_STATUS_UPDATE_DATE}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="expand">
+        <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button aria-label="expand row" (click)="isExpanded(element)">
+            <mat-icon *ngIf="!element?.expanded">keyboard_arrow_down</mat-icon>
+            <mat-icon *ngIf="element?.expanded">keyboard_arrow_up</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="expandedDetail">
+  
+        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+          <div class="example-element-detail" [@detailExpand]="element?.expanded ? 'expanded' : 'collapsed'">
+            <mat-card>
+              <div class="gridBox">
+                <div class="grid">
+                  <span class="heading">vpa</span>
+                  <span class="cell"> {{element.customerDetails?.vpa}} </span>
+                </div>
+                <div class="grid">
+                  <span class="heading">address</span>
+                  <span class="cell"> {{element.customerDetails?.address}} </span>
+                </div>
+                <div class="grid">
+                  <span class="heading">Mobile</span>
+                  <span class="cell"> {{element.customerDetails?.mobile | slice: 1}}</span>
+                </div>
+                <div class="grid">
+                  <span class="heading">Contact Number</span>
+                  <span class="cell"> {{element.registerMob }} </span>
+                </div>
+                <div class="grid">
+                  <span class="heading">email</span>
+                  <span class="cell">{{element.email}}</span>
+                </div>
+                <div class="grid"><span class="heading">mcc</span>
+                  <span class="cell">{{element.mcc}}</span>
+                </div>
+                <div class="grid"><span class="heading">kyc</span>
+                  <span class="cell">{{element.customerDetails?.kycStatus}}</span>
+                </div>
+                <div class="grid"><span class="heading">linkedbank</span>
+                  <span class="cell">{{element.account}}</span>
+                </div>
+              </div>
+            </mat-card>
+  
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef aria-label="row actions"> Action</th>
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="searchGrid">
+            <span *ngIf="editable" class="table-icon-inline-2">
+              <button mat-icon-button (click)="onEdit(element)">
+                <mat-icon>edit</mat-icon>
+              </button></span>
+  
+          </span>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand;sticky:true"></tr>
+  
+      <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="example-element-row"
+        [class.example-expanded-row]="element?.expanded"
+        (click)="expandedElement = expandedElement === element ? null : element"></tr>
+  
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    </table>
+  </div>
+  <mat-paginator [pageSizeOptions]="[10, 25, 100]" *ngIf="!pagination" aria-label="Select page of users"
+    class="mat-elevation-z8"></mat-paginator>

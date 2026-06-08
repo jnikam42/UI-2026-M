@@ -1,0 +1,137 @@
+.sidenav-container {
+    height: 100%;
+  }
+  
+  .sidenav {
+  
+    box-shadow: 3px 0 5px 0px rgb(0 0 0 / 22%);
+  }
+  
+  mat-sidenav,
+  mat-sidenav.mat-locked-open,
+  mat-sidenav.mat-closed.mat-locked-open-add-active {
+    min-width: 250px !important;
+    width: 85vw !important;
+    max-width: 250px !important;
+  }
+  
+  .bc {
+    background-color: #003366;
+    color: white;
+  }
+  
+  .mat-list-item-content {
+    padding: 0 8px;
+  }
+  
+  .mat-list-base .mat-list-item {
+    font-size: 14px;
+    color: white;
+  }
+  
+  .mat-expanded.active {
+    border-top-right-radius: 34px !important;
+    border-bottom-right-radius: 0px !important;
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+  }
+  
+  .mat-expansion-panel {
+    border-bottom-right-radius: 24px;
+    border-top-right-radius: 24px;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    box-shadow: none !important;
+  }
+  
+  .mat-expansion-panel-header.mat-expanded {
+    height: 48px;
+  }
+  
+  .icon-at-start {
+    margin-right: 5px;
+  }
+  
+  .mat-expansion-panel-header {
+    padding: 0 16px;
+  }
+  
+  .side-nav-item {
+    display: inline-flex !important;
+    align-items: flex-end;
+    font-size: 14px;
+    font-family: sans-serif, custom;
+  }
+  
+  .anchor {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .noti_icon {
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+      0px 4px 5px 0px rgb(0 0 0 / 14%),
+      0px 1px 10px 0px rgb(0 0 0 / 12%);
+    padding-right: 3px;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  
+  
+  .toolbar-btn {
+    margin: 0;
+    cursor: pointer;
+    height: 70%;
+    display: inline-block;
+    padding: 0 10px;
+    width: initial;
+  }
+  
+  .btn-icon {
+    font-size: 28px;
+    vertical-align: text-bottom;
+  }
+  
+  .breadcrumb-item {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .breadcrumb-item-last {
+    text-decoration: none;
+    pointer-events: none;
+    cursor: default;
+  }
+  
+  .navtoolbar {
+    background: white;
+  }
+  
+  .navdiv {
+    width: 100%;
+  }
+  
+  .navimg {
+    padding: 0 10px;
+  }
+  
+  .navbardiv {
+    text-align: right;
+    height: inherit;
+  }
+  
+  .mat-nav-list .mat-list-item.active-menu {
+    background-color: #003366;
+  }
+  
+  .mat-nav-list .mat-list-item.active-submenu {
+    background-color: #002244;
+  }
+  
+  .mat-nav-list .mat-list-item {
+    color: white;
+  }
+  
+  .mat-nav-list .mat-list-item .mat-list-item-content {
+    padding: 0 8px;
+  }

@@ -1,0 +1,67 @@
+.grid-container .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mat-form-field {
+  margin-right: 8px;
+}
+
+.gridxBox {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 25px;
+  margin-top: 15px;
+}
+
+.button-container {
+  display: flex;
+  /* Ensure buttons are displayed in a row */
+  justify-content: center;
+  /* Center buttons horizontally */
+  gap: 10px;
+  /* Adjust space between buttons */
+}
+
+.form-btn {
+  margin: 1px 5px 17px 2px !important;
+}
+
+.searchcust {
+  margin: 1%;
+  height: 60px !important;
+  width: 30% !important;
+  position: relative;
+  flex: 0.5;
+  /* Allow the Search By form field to expand */
+  margin-right: 15px;
+  /* Adjust margin between elements */
+}
+
+.searchfields {
+  margin: 1%;
+  height: 60px !important;
+  flex: 1;
+  /* Allow the Search By form field to expand */
+  margin-right: 10px;
+
+  /* Adjust margin between elements */
+  @media (min-width: 768px) {
+    width: 96%;
+    margin: 1% auto;
+  }
+}
+
+.searchBlock-form {
+  display: flex;
+  align-items: center;
+  /* Align items vertically in the middle */
+}
+
+.add-btn {
+  float: right;
+  margin-right: 9px !important;
+  margin-left: 14px;
+  width: unset;
+  margin-top: 17px;
+}

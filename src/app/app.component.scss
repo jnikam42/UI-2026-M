@@ -1,0 +1,33 @@
+$primary: var(--primary-color);
+
+.mat-progress-spinner {
+    margin: 0 auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: fixed;
+    background: #00000038;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+::ng-deep .mat-progress-spinner circle {
+    stroke: $primary;
+}
+
+.spinner {
+    // background-color: rgba(76, 76, 76, 0.3);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1002;
+    /* Make sure spinner appears on top */
+    width: 9%;
+    height: 9%;
+}
+
+::ng-deep .mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate] circle {
+    stroke-width: 7% !important;
+}

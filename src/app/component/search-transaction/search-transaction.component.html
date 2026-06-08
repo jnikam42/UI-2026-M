@@ -1,0 +1,124 @@
+<div class="grid-container">
+  <mat-expansion-panel [expanded]="panelOpen">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Search Transaction Details
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form [formGroup]="upiSearchForm" (ngSubmit)="onFormSubmit()">
+
+      <mat-form-field class="searchtrans" appearance="outline">
+        <mat-label class="searchlabel">Search By</mat-label>
+        <mat-select formControlName="searchByParam" (selectionChange)="searchParamChanged()">
+          <mat-option *ngFor="let key of searchByList | keyvalue" [value]="key.key">
+            {{ key.value }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="upiSearchForm.get('searchByParam')?.hasError('required')">
+          Search parameter is required!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="upiSearchForm.get('searchByParam')?.value === 'tranId'" class="searchtrans"
+        appearance="outline" style="width: 35% !important;">
+        <mat-label>Enter Transaction Id</mat-label>
+        <input matInput formControlName="tranId">
+        <mat-error *ngIf="upiSearchForm.get('tranId')?.hasError('required')">
+          Please enter a Transaction Id
+        </mat-error>
+        <mat-error *ngIf="upiSearchForm.get('virtualAdd')?.hasError('maxlength')">
+          Transaction Id must not exceed 35 characters.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="upiSearchForm.get('searchByParam')?.value === 'rrn'" class="searchtrans"
+        appearance="outline">
+        <mat-label>Enter RRN</mat-label>
+        <input matInput formControlName="rrn" maxlength="12">
+        <mat-error *ngIf="upiSearchForm.get('rrn')?.hasError('pattern')">
+          Enter a valid RRN Number!
+        </mat-error>
+        <mat-error *ngIf="upiSearchForm.get('rrn')?.hasError('required')">
+          Please enter a rrn number
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="upiSearchForm.get('searchByParam')?.value === 'umn'" class="searchtrans"
+        appearance="outline">
+        <mat-label>Enter UMN</mat-label>
+        <input matInput formControlName="umn" maxlength="50">
+        <mat-error *ngIf="upiSearchForm.get('umn')?.hasError('required')">
+          Please enter an UMN number
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="upiSearchForm.get('searchByParam')?.value === 'mobNo'" class="searchtrans"
+        appearance="outline">
+        <mat-label>Enter Mobile Number</mat-label>
+        <input matInput formControlName="mobNo" maxlength="10" minlength="10">
+        <mat-error *ngIf="upiSearchForm.get('mobNo')?.hasError('pattern')">
+          Please enter valid mobile number!
+        </mat-error>
+        <mat-error *ngIf="upiSearchForm.get('mobNo')?.hasError('required')">
+          Please enter a mobile number
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="upiSearchForm.get('searchByParam')?.value === 'accountNo'" class="searchtrans"
+        appearance="outline">
+        <mat-label>Enter Account Number</mat-label>
+        <input matInput formControlName="accountNo" maxlength="20">
+        <mat-error *ngIf="upiSearchForm.get('accountNo')?.hasError('pattern')">
+          Please enter valid account number!
+        </mat-error>
+        <mat-error *ngIf="upiSearchForm.get('accountNo')?.hasError('required')">
+          Please enter an account number
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="upiSearchForm.get('searchByParam')?.value === 'vpa'" class="searchtrans"
+        appearance="outline">
+        <mat-label>Enter Virtual Address</mat-label>
+        <input matInput formControlName="vpa" maxlength="60">
+        <mat-error *ngIf="upiSearchForm.get('vpa')?.hasError('pattern')">
+          Please enter valid Virtual Address!
+        </mat-error>
+        <mat-error *ngIf="upiSearchForm.get('vpa')?.hasError('required')">
+          Please enter a virtual address
+        </mat-error>
+      </mat-form-field>
+
+      <ng-container *ngIf="upiSearchForm.get('searchByParam')?.value === 'dateRange'">
+        <mat-form-field class="searchtrans" appearance="outline">
+          <mat-label>From Date</mat-label>
+          <input matInput [matDatepicker]="fromPicker" formControlName="fromDate" [min]="minFromDate"
+            [max]="maxFromDate" (dateChange)="onDateChange()">
+          <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fromPicker></mat-datepicker>
+          <mat-error *ngIf="upiSearchForm.get('fromDate')?.hasError('required')">Please select a valid From
+            Date</mat-error>
+        </mat-form-field> &nbsp; &nbsp;
+
+        <mat-form-field class="searchtrans" appearance="outline">
+          <mat-label>To Date</mat-label>
+          <input matInput [matDatepicker]="toPicker" formControlName="toDate" [min]="minToDate" [max]="maxToDate"
+            (dateChange)="onDateChange()">
+          <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+          <mat-datepicker #toPicker></mat-datepicker>
+          <mat-error *ngIf="upiSearchForm.get('toDate')?.hasError('required')">Please select a valid To
+            Date</mat-error>
+        </mat-form-field>
+      </ng-container>
+
+      <br><br>
+      <div class="button-container">
+        <button class="form-btn" mat-raised-button type="submit">Search</button>
+        <button class="btn-cancel form-btn" mat-raised-button type="button" (click)="reset()">Reset</button>
+      </div>
+    </form>
+  </mat-expansion-panel>
+  <app-table *ngIf="showDetails" [dataSource]="dataSource" [displayedColumns]="columns" [searchGrid]="true"
+    [tableType]="'transaction'" [excel]="true" (itemTranactionIDEvent)="openDialog($event)" (itemExcelEvent)="exportAsXLSX()"
+    (itemCsvEvent)="downloadAsCSV()">
+  </app-table>
+</div>

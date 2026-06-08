@@ -1,0 +1,73 @@
+<div class="grid-container">
+  <mat-expansion-panel [expanded]="panelOpen">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Block/Unblock Customer
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="text-align:right;width:100%;">
+      <button class="form-btn add-btn" mat-raised-button (click)="add()">
+        <mat-icon>add_circle</mat-icon>
+        Add New</button>
+    </div><br><br>
+
+    <form id="searchBlockForm" #searchBlockForm="ngForm" novalidate>
+      <div class="searchBlock-form">
+        <mat-form-field class="searchcust" appearance="outline">
+          <mat-label>Search By</mat-label>
+          <mat-select [(ngModel)]="searchParams.searchByParam" name="searchByParam" id="searchByParam" required>
+            <mat-option *ngFor="let key of searchByList | keyvalue" [value]="key.key">
+              {{ key.value }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="searchBlockForm.controls['searchByParam']?.hasError('required')">
+            Search parameter is required!
+          </mat-error>
+        </mat-form-field>
+        
+        <ng-container *ngIf="searchParams.searchByParam === 'blockType'">
+          <mat-form-field class="searchfields" appearance="outline">
+            <mat-label>Select Block Type</mat-label>
+            <mat-select [(ngModel)]="searchParams.blockType" name="blockType" required>
+              <mat-option *ngFor="let blockType of blockTypeDataList | keyvalue" [value]="blockType.key">
+                {{ blockType.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+
+        <ng-container *ngIf="searchParams.searchByParam === 'blockValue'">
+          <mat-form-field class="searchfields" appearance="outline">
+            <mat-label>Enter Block Value</mat-label>
+            <input matInput type="text" [(ngModel)]="searchParams.blockValue" name="blockValue" id="blockValue"
+              autocomplete="off" maxlength="60" required />
+            <mat-error *ngIf="searchBlockForm.controls['blockValue']?.hasError('required')">
+              Please enter a Block Value.
+            </mat-error>
+          </mat-form-field>
+        </ng-container>
+
+        <ng-container *ngIf="searchParams.searchByParam === 'status'">
+          <mat-form-field class="searchfields" appearance="outline">
+            <mat-label>Select Status</mat-label>
+            <mat-select [(ngModel)]="searchParams.status" name="status" required>
+              <mat-option *ngFor="let status of statusList | keyvalue" [value]="status.key">
+                {{ status.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+      </div>
+      <br>
+      <div class="button-container">
+        <button mat-raised-button class="form-btn" (click)="onSubmit()">Search</button>
+        <button mat-raised-button class="btn-cancel form-btn" (click)="onReset()">Reset</button>
+      </div>
+
+      <app-table *ngIf="showData" [dataSource]="dataSource" [displayedColumns]="columns" [searchGrid]="true"
+        [tableType]="'block-customer'" [editable]="true" (itemEditEvent)="edit($event)" [view]="true"
+        filterLabel="Filter Details in Table">
+      </app-table>
+    </form>
+  </mat-expansion-panel>
+</div>

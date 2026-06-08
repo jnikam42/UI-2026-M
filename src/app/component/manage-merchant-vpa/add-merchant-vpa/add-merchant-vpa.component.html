@@ -1,0 +1,24 @@
+<div class="grid-container">
+    <mat-card>
+        <mat-panel-title>
+            <h2>Add Merchant VPA</h2>
+        </mat-panel-title>
+        <form name="form" [formGroup]="addForm">
+            <mat-form-field appearance="outline" style="width: 400px;">
+                <mat-label>Enter Merchant VPA</mat-label>
+                <input type="text" matInput autocomplete="off" formControlName="merchantVpa"
+                    name="merchantVpa" maxlength="70">
+                <mat-error *ngIf="addForm?.get('merchantVpa')?.hasError('pattern')">
+                    Please enter valid Virtual Address!
+                </mat-error>
+                <mat-error *ngIf="addForm?.get('merchantVpa')?.hasError('required')">
+                    Please enter Virtual Address
+                </mat-error>
+            </mat-form-field><br>
+            <div>
+                <button mat-raised-button class="form-btn" type="submit" (click)="onSubmit()">Submit</button>
+                <button mat-raised-button class="btn-cancel form-btn" (click)="onClose()">Back</button>
+            </div>
+        </form>
+    </mat-card>
+</div>

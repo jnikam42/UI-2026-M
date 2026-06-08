@@ -1,0 +1,80 @@
+.grid-container .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mat-form-field {
+    margin-right: 8px;
+}
+
+.gridxBox {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 25px;
+    margin-top: 15px;
+}
+
+.status-padding {
+    padding: 0 4px;
+}
+
+.ACTIVE {
+    background: green;
+    color: white;
+}
+
+.NEW {
+    background: blue;
+    color: white;
+}
+
+.LOCKED {
+    background: grey;
+    color: white;
+}
+
+.INACTIVE {
+    background: red;
+    color: white;
+}
+
+.ARCHIVED {
+    background: orange;
+    color: white;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.form-btn {
+    margin: 1px 5px 17px 2px !important;
+}
+
+.searchcust {
+    margin: 1%;
+    height: 60px !important;
+    width: 30% !important;
+    position: relative;
+    flex: 0.5;
+    margin-right: 15px;
+}
+
+.searchfields {
+    margin: 1%;
+    height: 60px !important;
+    flex: 1;
+    margin-right: 10px;
+
+    @media (min-width: 768px) {
+        width: 96%;
+        margin: 1% auto;
+    }
+}
+
+.searchCust-form {
+    display: flex;
+    align-items: center;
+}

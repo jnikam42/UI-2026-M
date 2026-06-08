@@ -1,0 +1,153 @@
+<div style="display: flex; justify-content: space-between;">
+  <mat-form-field class="filterresponsive" *ngIf="filterLabel">
+    <mat-label>{{filterLabel}}</mat-label>
+    <input matInput class="filter" (keyup)="applyFilter($event)" [(ngModel)]="filterText" name="filter"
+      autocomplete="off">
+  </mat-form-field>
+
+  <div *ngIf="addNew">
+    <button mat-button class="form-btn add-btn" (click)="onAdd()">Add New</button>
+  </div>
+
+  <div class="download-container">
+    <div *ngIf="pdf" class="download">
+      <button type="button" mat-button class="exportIcons" style="min-width: 0px !important; padding-right: 15px;"
+        (click)="downloadAsPDF()">
+        <mat-icon style="color: red;">picture_as_pdf</mat-icon>Pdf
+      </button>
+    </div>
+    <div *ngIf="excel" class="download">
+      <button type="button" mat-button class="exportIcons" style="min-width: 0px !important; padding-right: 15px;"
+        (click)="exportAsXLSX()">
+        <mat-icon style="color: green;">description</mat-icon>Excel
+      </button>
+    </div>
+    <div *ngIf="csv" class="download">
+      <button type="button" mat-button class="exportIcons" style="min-width: 0px !important; padding-right: 15px;"
+        (click)="downloadAsCSV()">
+        <mat-icon style="color: blue;">description</mat-icon>Export(csv)
+      </button>
+    </div>
+  </div>
+
+</div>
+<div class="example-container mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort class="table-size">
+    <span *ngFor="let col of displayedColumns">
+      <ng-container *ngIf="col.name != 'action' && col.name != 'status' && col.name != 'txnId' && col.name != 'id'"
+        [matColumnDef]="col.name">
+        <th style="text-align: center;" class="tableth" mat-header-cell *matHeaderCellDef mat-sort-header>
+          <span>{{col.label | titlecase}}</span>
+        </th>
+        <td mat-cell *matCellDef="let row; let i = index;">
+
+          <span *ngIf="col.label.toLowerCase().includes('date') && tableType =='report'">
+            {{row[col.name]}}
+          </span>
+          <span *ngIf="col.label.toLowerCase().includes('date') && tableType !=='report'">
+            {{row[col.name] | date :'MMM d, y, HH:mm:ss'}}
+          </span>
+          <span *ngIf="!col.label.toLowerCase().includes('date') && col.name !== 'itc'">
+            {{row[col.name]}}
+          </span>
+          <span *ngIf="col.name === 'itc'">
+            {{ row['itc'] }} - ({{ row['type'] }})
+          </span>
+        </td>
+      </ng-container>
+    </span>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="srNo">Sr. No.</th>
+      <td mat-cell *matCellDef="let item; let i = index">
+        {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="tableth"> Status </th>
+      <td mat-cell *matCellDef="let row">
+        <span [ngClass]="row.status == 'Active' ? 'active' : row.status == 'Inactive' ? 'inactive'
+                 : row.status == 'COMPLETED' ? 'C' : row.status == 'PENDING' ? 'P' 
+                 : row.status == 'INVALID' ? 'R' : row.status == 'IN_PROGRESS' ? 'I' : row.status == 'APPROVED' ? 'Y'
+                 : row.status == 'REJECTED' ? 'X' : row.status == 'Locked' ? 'locked': ''">
+          {{txnStatusMapping[row.status] || row.status}}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="txnId" *ngIf="tableType =='transaction'">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="tableth"> Transaction ID</th>
+      <td mat-cell *matCellDef="let row">
+        <a (click)="onTxnIdClick(row)" class="txnId">{{row.txnId}}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef aria-label="row actions" class="tableth"> Action </th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="searchGrid">
+          <span *ngIf="editable && element.id!=1" class="table-icon-inline-2">
+            <button mat-icon-button (click)="onEdit(element.id)">
+              <mat-icon>edit</mat-icon>
+            </button></span>
+          <span *ngIf="deletable && element.id!=1 " class="table-icon-inline-2 table-icon-inline color-red">
+            <ng-container>
+              <button mat-icon-button class="table-icon-inline color-red" (click)="onDelete(element.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </ng-container>
+          </span>
+          <span *ngIf="view && !isAdmin && !isEditable" class="table-icon-inline-2">
+            <button mat-icon-button (click)="onView(element.id)">
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </span>
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="publicKey">
+      <th mat-header-cell *matHeaderCellDef aria-label="row actions" class="tableth"> Public Key </th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="searchGrid">
+          <span *ngIf="element.useEncryption!=false" class="table-icon-inline-2">
+            <button mat-icon-button (click)="onpublicKeyDownload(element)">
+              <mat-icon>file_download</mat-icon>
+            </button></span>
+          <span *ngIf="element.useEncryption!=false" class="table-icon-inline-2 table-icon-inline color-red">
+            <ng-container>
+              <button mat-icon-button class="table-icon-inline color-red" (click)="onRefresh(element)">
+                <mat-icon>refresh</mat-icon>
+              </button>
+            </ng-container>
+          </span>
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="downloadResponse">
+      <th mat-header-cell *matHeaderCellDef="let element" class="tableth" mat-sort-header>Download Response</th>
+      <td mat-cell *matCellDef="let row">
+        <mat-icon (click)="ondownloadResponse(row)"
+          *ngIf="row.rawStatus !== 'PENDING' && row.rawStatus !== 'IN_PROGRESS'  && row.rawStatus !== 'R' "
+          style="cursor:pointer">download</mat-icon>
+      </td>
+    </ng-container>
+
+    <span *ngIf="positions" class="table-icon-inline-2">
+      <span style='font-size:17px;cursor:pointer;'><mat-icon>arrow_upward</mat-icon></span>
+      <span style='font-size:17px;cursor:pointer;'><mat-icon>arrow_downward</mat-icon></span>
+    </span>
+
+    <tr mat-header-row *matHeaderRowDef="columns;sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+
+    <tr class="mat-row" style="width: max-content" *matNoDataRow>
+      <td class="mat-cell" style="width: max-content" colspan="4">No data matching the filter "{{filterText}}"</td>
+    </tr>
+  </table>
+</div>
+
+<mat-paginator fxFlex="100" #paginatorRef [length]="10" [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100]"
+  aria-label="Select page of users" class="mat-elevation-z8 mat-paginator">
+</mat-paginator>

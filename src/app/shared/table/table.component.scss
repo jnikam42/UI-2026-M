@@ -1,0 +1,147 @@
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 14%;
+  margin-right: -10px;
+}
+
+.example-container {
+  width: 100%;
+  max-height: 760px;
+  overflow-y: auto;
+  margin-left: 0%;
+}
+
+.table-icon-inline-2 {
+  display: inline-flex;
+}
+
+::ng-deep .mat-paginator-page-size-select .mat-form-field-wrapper {
+  width: unset;
+}
+
+th.mat-mdc-sort-header-sorted {
+  color: black;
+}
+
+.mat-mdc-sort-header-content {
+  text-transform: capitalize;
+}
+
+.add-btn {
+  float: right;
+  margin-right: 9px !important;
+  margin-left: 14px;
+  width: unset;
+  margin-top: 17px;
+}
+
+.active {
+  background: green !important;
+  padding: 5px 8px;
+  border-radius: 15px;
+  margin-left: 4px;
+  color: white;
+}
+
+.inactive {
+  background: red;
+  padding: 5px 8px;
+  border-radius: 15px;
+  color: white;
+}
+
+.locked {
+  background: grey;
+  padding: 5px 8px;
+  border-radius: 15px;
+  margin-left: 3px;
+  color: white;
+}
+
+th.mat-mdc-header-cell:last-of-type,
+td.mat-mdc-cell:last-of-type,
+td.mat-mdc-footer-cell:last-of-type {
+  padding-right: 0px;
+}
+
+.mat-mdc-column-action {
+  padding-left: 0px !important;
+}
+
+.mat-mdc-checkbox-frame {
+  border-color: #b7adadd9 !important;
+}
+
+.tableth {
+  color: white !important;
+  background-color: #003366 !important;
+  text-align: center !important;
+}
+
+.srNo {
+  color: white !important;
+  background-color: #003366 !important;
+  text-align: center !important;
+}
+
+.filterresponsive {
+  display: inline-table;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 1024px) and (max-height: 900px) {
+  .filterresponsive {
+    justify-content: flex-start;
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .filter {
+    width: 100%;
+  }
+}
+
+.mat-paginator {
+  width: calc(99.1% + 13px);
+  margin-left: 1px;
+}
+
+@media screen and (max-width: 1024px) and (max-height: 900px) {
+
+  .exportIcons {
+    padding-right: 2px !important;
+  }
+
+  .table-size {
+    width: 107%;
+  }
+
+  .mat-mdc-paginator-container {
+    padding: 0px 0px !important;
+  }
+}
+
+.txnId {
+  cursor: pointer;
+}
+
+.txnId:hover {
+  color: #1178df !important;
+}
+
+.download-container {
+  display: flex; 
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.download {
+  margin: 0;
+}

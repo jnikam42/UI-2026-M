@@ -1,0 +1,90 @@
+{
+  "welcomeMsg": "Welcome to IDBI Bank Admin Portal",
+  "logoImg": "assets/img/logo.jpg",
+  "primary_theme_color": "#003366",
+  "primary_button_color": "#337ab7",
+  "primary_button_text_color": "#fff",
+  "secondry_button_color": "#9e9e9e",
+  "secondry_button_text_color": "#fff",
+  "nav_btn_color": "#003366",
+  "nav_btn_text_color": "#fff",
+  "nav_btn_padding_color": "#003366",
+  "nav_icon_text_color": "rgba(0, 0, 0, 0.87)",
+  "nav_icon_text_color_active": "#fff",
+  "nav_bg_color": "#fff",
+  "nav_text_color": "rgba(0, 0, 0, 0.87)",
+  "nav_hover_color": "rgba(0, 0, 0, 0.04)",
+  "flagImg": "",
+  "portalImg": "",
+  "customLoginPage": false,
+  "loginInputBox": "outline",
+  "loginBtnTxt": "Login",
+  "dateFormatForReports": "DD/MM/yyyy",
+  "dateFormatForTxn": "DD/MM/yyyy",
+  "uiVersion": "1.0.0",
+  "institute": "9999",
+  "dateRange": 30,
+  "channel": "UI",
+  "idleTime": 420,
+  "timeout": 60,
+  "sidemenu_item": [
+    {
+      "displayName": "Search Transaction",
+      "iconName": "search",
+      "route": "/search-transaction",
+      "permission": "search-trans",
+      "selfRoute": true
+    },
+    {
+      "displayName": "Search Customer",
+      "iconName": "person_search",
+      "route": "/search-customers",
+      "permission": "search-cust",
+      "selfRoute": true
+    },
+    {
+      "displayName": "Block/Unblock Customer",
+      "iconName": "block",
+      "route": "/block-customer",
+      "permission": "manage-block",
+      "selfRoute": true
+    },
+    {
+      "displayName": "Manage Merchant Vae",
+      "iconName": "recent_actors",
+      "route": "/manage-vae",
+      "selfRoute": true,
+      "permission": "manage-merchant"
+    },
+    {
+      "displayName": "User And Grants",
+      "iconName": "manage_accounts",
+      "route": "/merchant",
+      "selfRoute": false,
+      "permission": "manage-user,view-user, manage-role,view-role",
+      "children": [
+        {
+          "displayName": "User Management",
+          "iconName": "person",
+          "route": "/user-management",
+          "selfRoute": true,
+          "permission": "manage-user,view-user"
+        },
+        {
+          "displayName": "Role Management",
+          "iconName": "lan",
+          "route": "/role-management",
+          "selfRoute": true,
+          "permission": "manage-role,view-role"
+        }
+      ]
+    },
+    {
+      "displayName": "Change Password",
+      "iconName": "swap_horiz",
+      "route": "/change-password",
+      "selfRoute": true
+    }
+  ],
+  "strongPassword": "Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character."
+}

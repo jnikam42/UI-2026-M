@@ -1,0 +1,55 @@
+.grid-container .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gridxBox {
+  margin-top: 15px;
+}
+
+
+.searchtrans {
+  margin: 1%;
+  height: 60px !important;
+  width: 30% !important;
+  position: relative;
+  margin-right: 10px;
+}
+
+.input-field {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: left;
+  gap: 10px;
+  margin-left: 25%;
+}
+
+.form-btn {
+  margin: 1px 5px 17px 2px !important;
+}
+
+.mat-form-field {
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: auto;
+  }
+}
+
+.mat-select-trigger,
+.mat-select-value {
+  width: 100%;
+}
+
+.searchlabel {
+  width: 600% !important;
+  height: 60px !important;
+}
+
+.mat-mdc-form-field-type-mat-select {
+  height: 73px;
+}

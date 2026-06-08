@@ -1,0 +1,111 @@
+<div class="grid-container">
+  <mat-expansion-panel [expanded]="panelOpen">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Search Customer Profile
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <form [formGroup]="searchCustForm" id="searchCustForm" novalidate>
+      <div class="searchCust-form">
+        <mat-form-field class="searchcust" appearance="outline">
+          <mat-label>Search By</mat-label>
+          <mat-select formControlName="searchByParam" name="searchByParam"
+            (selectionChange)="searchParamChanged()">
+            <mat-option *ngFor="let key of searchByList | keyvalue" [value]="key.key">
+              {{ key.value }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="searchCustForm.get('searchByParam')?.hasError('required')">
+            Search parameter is required!
+          </mat-error>
+        </mat-form-field>
+
+        <ng-container *ngIf="searchCustForm.get('searchByParam')?.value === 'mobileNo'">
+          <mat-form-field class="searchfields" appearance="outline">
+            <mat-label>Enter Mobile Number</mat-label>
+            <input matInput type="tel" formControlName="mobileNo" name="mobileNo"
+              autocomplete="off" maxlength="10" minlength="10"/>
+            <mat-error *ngIf="searchCustForm.get('mobileNo')?.hasError('pattern')">
+              Please enter a valid mobile number!
+            </mat-error>
+            <mat-error *ngIf="searchCustForm.get('mobileNo')?.hasError('required')">
+              Please enter a mobile number
+            </mat-error>
+          </mat-form-field>
+        </ng-container>
+
+        <ng-container *ngIf="searchCustForm.get('searchByParam')?.value === 'virtualAdd'">
+          <mat-form-field class="searchfields" appearance="outline">
+            <mat-label>Enter Virtual Address</mat-label>
+            <input matInput type="text" formControlName="virtualAdd" name="virtualAdd"
+              autocomplete="off" maxlength="60"/>
+            <mat-error *ngIf="searchCustForm.get('virtualAdd')?.hasError('pattern')">
+              Please enter valid Virtual Address!
+            </mat-error>
+            <mat-error *ngIf="searchCustForm.get('virtualAdd')?.hasError('maxlength')">
+              Virtual address must not exceed 60 characters. 
+            </mat-error>
+          </mat-form-field>
+        </ng-container>
+
+        <ng-container *ngIf="searchCustForm.get('searchByParam')?.value === 'accountNo'">
+          <mat-form-field class="searchfields" appearance="outline">
+            <mat-label>Enter Account Number</mat-label>
+            <input matInput type="text" formControlName="accountNo" name="accountNo"
+              autocomplete="off" maxlength="20"/>
+            <mat-error *ngIf="searchCustForm.get('accountNo')?.hasError('pattern')">
+              Please enter valid Account No!
+            </mat-error>
+            <mat-error *ngIf="searchCustForm.get('accountNo')?.hasError('maxlength')">
+              Account number must not exceed 20 digits in length.
+            </mat-error>
+          </mat-form-field>
+        </ng-container>
+      </div>
+      <br>
+      <div class="button-container">
+        <button mat-raised-button class="form-btn" (click)="onSearch()">Search</button>
+        <button mat-raised-button class="btn-cancel form-btn" (click)="reset()">Reset</button>
+      </div>
+    </form>
+  </mat-expansion-panel>
+  <div *ngIf="showData">
+    <div class="gridxBox">
+      <mat-card *ngFor="let customer of custData; index as i">
+        <mat-icon>person</mat-icon>
+        <div><span class="data-heading">ID</span> : <span class="data-value">{{customer.id}}</span></div>
+        <div><span class="data-heading">Customer Mobile</span> : <span class="data-value">{{customer.mobile}}</span>
+        </div>
+        <div><span class="data-heading">Customer Name</span> : <span class="data-value">{{customer.name}}</span></div>
+        <div><span class="data-heading">Channel ID</span> : <span class="data-value">{{customer.channel}}</span></div>
+        <div><span class="data-heading">Customer Status</span> : <span class="data-value">
+            <span class="ACTIVE" *ngIf="customer.status === 'A'">Active</span>
+            <span class="INACTIVE" *ngIf="customer.status === 'D'">Deactivated</span>
+            <span class="ARCHIVED" *ngIf="customer.status === 'P'">Pending</span>
+          </span></div>
+        <div><span class="data-heading">Last Updated</span> : <span class="data-value">
+            <span class="data-value">{{customer.updateDate |date:'dd-MM-yyyy HH:mm:ss'}}</span>
+          </span></div>
+
+        <div *ngFor="let account of customer.vaAccounts; index as j">
+          <div><b>VPA & Account Details - ({{j + 1}})</b></div>
+          <div><span class="data-heading">VPA</span> : <span class="data-value">{{account.virtualAddress}}</span></div>
+          <div><span class="data-heading">Created Date</span> : <span class="data-value">{{account.createDate |
+              date:'dd-MM-yyyy HH:mm:ss'}}</span></div>
+          <div><span class="data-heading">Default Debit</span> : <span class="data-value">{{ account.defaultDebit ===
+              'D' ? 'Yes' : 'No' }}</span></div>
+          <div><span class="data-heading">Default Credit</span> : <span class="data-value">{{ account.defaultCredit ===
+              'D' ? 'Yes' : 'No' }}</span></div>
+
+          <div><span class="data-heading">Account No</span> : <span class="data-value">{{account.accountNumber}}</span>
+          </div>
+          <div><span class="data-heading">Account Ref Number</span> : <span
+              class="data-value">{{account.accountRefNumber}}</span></div>
+          <div><span class="data-heading">IFSC</span> : <span class="data-value">{{account.ifscCode}}</span></div>
+          <div><span class="data-heading">Channel</span> : <span class="data-value">{{account.channelCode}}</span></div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

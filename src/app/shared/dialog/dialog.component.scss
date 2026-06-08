@@ -1,0 +1,102 @@
+button {
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+.justify-content-center {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.dialog-btn-yes {
+  background-color: #003366;
+  color: white;
+  width: 45%;
+  transition: background-color 0.3s;
+}
+
+.dialog-btn-yes:hover {
+  background-color: #00509e;
+}
+
+.dialog-btn-no {
+  background-color: #cccccc;
+  color: white;
+  width: 45%;
+  transition: background-color 0.3s;
+}
+
+.dialog-btn-no:hover {
+  background-color: #999999;
+}
+
+.dialog-btn-confirm {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.dialog-btn-confirm:hover {
+  background-color: #45a049;
+}
+
+.session-msg-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #d9534f;
+  margin-bottom: 15px;
+}
+
+.session-msg-body {
+  font-size: 16px;
+  color: #555; 
+  margin-bottom: 20px;
+}
+
+mat-dialog-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #003366;
+  margin-bottom: 10px;
+}
+
+mat-dialog-content {
+  padding: 20px;
+  text-align: center;
+}
+
+mat-dialog-actions {
+  padding: 10px 20px;
+}
+
+.dialog-btn-confirm {
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .dialog-btn-yes, .dialog-btn-no {
+    width: 100%;
+  }
+
+  .dialog-btn-confirm {
+    width: 100%;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

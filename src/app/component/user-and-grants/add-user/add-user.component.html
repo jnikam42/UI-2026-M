@@ -1,0 +1,108 @@
+<div class="grid-container">
+    <mat-card>
+        <mat-panel-title>
+            <h2>User Information</h2>
+        </mat-panel-title>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline" class="mat-form-field">
+                <mat-label>Institute</mat-label>
+                <mat-select formControlName="institute">
+                    <mat-option *ngFor="let institute of institutes" [value]="institute.id">
+                        {{ institute.name }} - {{ institute.id }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="userForm.get('institute')?.hasError('required')">
+                    Please select Institute
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Login Id</mat-label>
+                <input matInput autocomplete="off" id="nick" formControlName="nick" minlength="3" maxlength="50">
+                <mat-error *ngIf="userForm.get('nick')?.hasError('required')">
+                    Please enter User Name
+                </mat-error>
+                <mat-error *ngIf="userForm.get('nick')?.hasError('pattern')">
+                    Please enter valid User Name
+                </mat-error>
+            </mat-form-field>
+
+            
+            <mat-form-field appearance="outline">
+                <mat-label>Display Name</mat-label>
+                <input matInput autocomplete="off" formControlName="name" required maxlength="50">
+                <mat-error *ngIf="userForm?.get('name')?.hasError('pattern')">
+                    Please enter valid Name
+                </mat-error>
+                <mat-error *ngIf="userForm?.get('name')?.hasError('required')">
+                    Please enter Name
+                </mat-error>
+            </mat-form-field>
+
+            
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput required autocomplete="off" formControlName="email"
+                    maxlength="100" formControlName="email">
+                <mat-error *ngIf="userForm?.get('email')?.hasError('required')">
+                    Please enter a valid email
+                </mat-error>
+                <mat-error *ngIf="userForm?.get('email')?.hasError('pattern')">
+                    Please enter a valid email address
+                </mat-error>
+            </mat-form-field>
+
+            
+            <mat-form-field appearance="outline" *ngIf="mode === 'Add' && userData">
+                <mat-label> Password</mat-label>
+                <input type="password" id="textPassword" matInput required formControlName="textPassword">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" *ngIf="mode === 'Edit' && userData">
+                <mat-label> Temporary Password</mat-label>
+                <input type="password" id="textPassword" matInput required formControlName="textPassword">
+            </mat-form-field>
+
+
+            
+            <div>
+                <div class="example-container">
+                    <h2>Available Roles</h2>
+                    <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="availableRoles"
+                        [cdkDropListConnectedTo]="[doneList]" class="example-list" (cdkDropListDropped)="drop($event)">
+                        <div class="example-box" *ngFor="let item of availableRoles" cdkDrag
+                            (cdkDragStarted)="test($event)" (click)="onKeyDown($event, item, availableRoles)"
+                            [ngClass]="{'selected':item.selected,'disabled':isView}">
+                            {{item.name}}
+                        </div>
+                    </div>
+                    <p class="note-txt">
+                        &nbsp;* Drag and drop the roles to assign or remove the roles</p>
+                    <p class="note-txt">
+                        &nbsp;* Use ctrl key to select multiple roles</p>
+                </div>
+                <div class="example-container">
+                    <h2>Assigned Roles</h2>
+                    <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="assignedRoles"
+                        [cdkDropListConnectedTo]="[todoList]" class="example-list" (cdkDropListDropped)="drop($event)">
+                        <div class="example-box" *ngFor="let item of assignedRoles" cdkDrag
+                            (click)="onKeyDown($event, item, assignedRoles)"
+                            [ngClass]="{'selected':item.selected,'disabled':isView}">
+                            {{item.name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            
+            <mat-checkbox formControlName="active">Status</mat-checkbox>
+
+            <br>
+            <div>
+                <button mat-raised-button class="form-btn" type="submit" *ngIf="!isView">SAVE</button>
+                <button mat-raised-button class="btn-cancel form-btn" (click)="onClose()" *ngIf="!isView">BACK</button>
+            </div>
+        </form>
+    </mat-card>
+</div>

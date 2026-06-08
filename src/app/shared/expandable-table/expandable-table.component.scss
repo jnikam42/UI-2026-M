@@ -1,0 +1,89 @@
+table {
+    width: 100%;
+  }
+  
+  tr.example-detail-row {
+    height: 0;
+  }
+  
+  ::ng-deep .mat-paginator-page-size-select .mat-form-field-wrapper {
+    width: unset;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):hover {
+    background: whitesmoke;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+  }
+  
+  th.mat-header-cell {
+    text-transform: capitalize;
+  }
+  
+  .example-container {
+    max-height: 300px;
+    overflow-y: auto;
+    width: 100%;
+  
+  }
+  
+  .example-element-row td {
+    border-bottom-width: 0;
+  }
+  
+  .example-element-detail {
+    overflow: hidden;
+  }
+  
+  .example-element-diagram {
+    min-width: 80px;
+    border: 2px solid black;
+    padding: 8px;
+    font-weight: lighter;
+    margin: 8px 0;
+    height: 104px;
+  }
+  
+  .example-element-symbol {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: normal;
+  }
+  
+  .example-element-description {
+    padding: 16px;
+  }
+  
+  .example-element-description-attribution {
+    opacity: 0.5;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  .gridBox {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  
+  .grid {
+    padding: 5px;
+    display: grid;
+  }
+  
+  .heading {
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+  
+  .mat-card {
+    background-color: rgb(0 0 0 / 4%);
+  }
+  
+  .mat-column-action {
+    padding-left: 0px !important;
+  }

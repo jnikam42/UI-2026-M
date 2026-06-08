@@ -1,0 +1,105 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+      <mat-nav-list>
+        <ng-container *ngFor="let item of menuItems; let i = index">
+          <ng-container *checkRole="item.permission">
+            <span *ngIf="item.children && item.children.length > 0">
+              <mat-accordion>
+                <mat-expansion-panel class="nav-panel" (opened)="panelToggle(i)"
+                  [ngClass]="route.url.indexOf(item.route) != -1? 'list-item-active': ''"
+                  [expanded]="!initialClose && route.url.indexOf(item.route) != -1">
+                  <mat-expansion-panel-header *ngIf="item.selfRoute" [routerLink]="item.route">
+                    <div class="side-nav-item">
+                      <mat-icon class="icon-at-start">{{item.iconName}}</mat-icon>
+                      {{item.displayName}}
+                    </div>
+                  </mat-expansion-panel-header>
+                  <mat-expansion-panel-header *ngIf="!item.selfRoute">
+                    <div class="side-nav-item ">
+                      <mat-icon class="icon-at-start">{{item.iconName}}</mat-icon>
+                      {{item.displayName}}
+                    </div>
+                  </mat-expansion-panel-header>
+                  <span *ngFor="let child of item.children">
+                    <mat-list-item *checkRole="item.permission" [ngClass]="{'': route.url.indexOf(item.route) != -1}" [routerLink]="child.route"
+                      routerLinkActive="active1" class="nav-child-list-item">
+                      <div class="side-nav-item">
+                        <mat-icon class="icon-at-start child-icon"
+                          routerLinkActive="active1">{{child.iconName}}</mat-icon>
+                        <span style="font-size: small;" routerLinkActive="active1">{{child.displayName}}</span>
+                      </div>
+                    </mat-list-item>
+                  </span>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </span>  
+            <span *ngIf="!item.children || item.children.length === 0">
+              <mat-list-item *checkRole="item.permission" [ngClass]="route.url.indexOf(item.route) != -1? 'list-item-active': ''"
+                [routerLink]="item.route">
+                <div class="side-nav-item">
+                  <mat-icon class="icon-at-start">{{item.iconName}}</mat-icon>
+                  {{item.displayName}}
+                </div>
+              </mat-list-item>
+            </span>
+          </ng-container>
+        </ng-container>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar style="background: white;">
+        <div class="navdiv" style="width: 100%;">
+          <img class="navimg" style="padding:0 10px;" [src]="configData.logoImg" width="140"
+            alt="Description of the logo">
+        </div>
+        <div class="navbardiv" style="text-align: right;height: inherit;">
+          <mat-menu #appMenu="matMenu" xPosition="before">
+            <ng-template *ngIf="notifications.length > 0" matMenuContent let-name="name">
+              <button *ngFor="let n of notifications" [title]="n" mat-menu-item>{{n}}</button>
+            </ng-template>
+            <ng-template *ngIf="notifications.length == 0" matMenuContent let-name="name">
+              <button mat-menu-item>No records found</button>
+            </ng-template>
+            <div class="menu-footer" *ngIf="notifications.length > 0">
+              <a class="anchor">See all</a>
+            </div>
+          </mat-menu>
+  
+          <button mat-menu-item [matMenuTriggerFor]="menu" class="toolbar-btn">
+            <span style="display: inline-block;">
+              <div style="padding: 0 10px; height: 20px;">{{userService.userSessionData?.data?.user.name}}</div>
+            </span>
+            <div style="display: inline-block;">
+              <mat-icon class="btn-icon" style="margin-right: 0px;display: block;">person_outline</mat-icon>
+            </div>
+  
+            <div style="display: inline-block;">
+              <mat-icon class="btn-icon" style="margin-right: 10px;display: block;">arrow_drop_down</mat-icon>
+            </div>
+          </button>
+          <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>power_settings_new</mat-icon>
+              <span>Logout</span>
+            </button>
+          </mat-menu>
+        </div>
+      </mat-toolbar>
+  
+      <mat-toolbar class="bc">
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li *ngFor="let b of breadcrumbList;let i = index" [attr.data-index]='i'
+              [ngClass]="i == breadcrumbList.length-1 ? 'breadcrumb-item-last' : 'breadcrumb-item'"
+              [routerLink]="i == breadcrumbList.length-1 ? '' : b.route">
+              {{b.name}}</li>
+          </ol>
+        </nav>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container> 

@@ -1,0 +1,6 @@
+<div class="grid-container">
+    <app-table [dataSource]="dataSource" [displayedColumns]="displayedColumns" [searchGrid]="true" [tableType]="'role'"
+        filterLabel="Filter Details in Table" matSort defaultSort="created" [addNew]="true" [view]="true"
+        (itemAddEvent)="add()" (itemDeleteEvent)="delete($event)" [deletable]="true" (itemEditEvent)="edit($event)"
+        [editable]="true"></app-table>
+</div>

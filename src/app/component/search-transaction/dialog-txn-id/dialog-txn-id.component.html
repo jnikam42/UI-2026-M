@@ -1,0 +1,160 @@
+<div class="box">
+    <h3>Transaction Details</h3>
+    <div class="">
+        <div class="flex">
+            <span class="data-heading"> Transaction ID</span>:
+            <span class="data-value"> {{transactionDetails.txnId}}</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading"> Reference Id</span>:
+            <span class="data-value"> {{transactionDetails.refId}}</span>
+        </div>
+    </div>
+    <div class="">
+        <div class="flex">
+            <span class="data-heading"> Date</span>:
+            <span class="data-value"> {{transactionDetails.tdate | date :'MMM d, y, HH:mm:ss'}}</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading">Type</span>:
+            <span class="data-value"> {{transactionDetails.type}}</span>
+        </div>
+
+    </div>
+    <div class="">
+        <div class="flex">
+            <span class="data-heading">Amount</span>:
+            <span class="data-value"> {{transactionDetails.amount | currency : "₹ "}}</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading">RRN</span>:
+            <span class="data-value"> {{transactionDetails.ssRrn}}</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading">Approval No</span>:
+            <span class="data-value"> {{transactionDetails.approvalNumber}}</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading">LRN</span>:
+            <span class="data-value"> {{transactionDetails.lrn}}</span>
+        </div>
+    </div>
+</div>
+<mat-divider></mat-divider>
+<div class="box">
+    <h3>Payer Information</h3>
+
+    <div class="">
+        <div class="flex">
+            <span class="data-heading"> Payer Name</span>:
+            <span class="data-value"> {{transactionDetails.payerName}}</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading">Payer VPA</span>:
+            <span class="data-value"> {{transactionDetails.payerVa}}</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading">Payer Mobile</span>:
+            <span class="data-value"> {{transactionDetails.payerMobile}}</span>
+        </div>
+    </div>
+    <div class="">
+        <div class="flex">
+            <span class="data-heading">Payer Account (Type)</span>:
+            <span class="data-value"> {{transactionDetails.payerAccount}}</span>
+            <span class="data-value" *ngIf="transactionDetails?.payerAccountType">
+                ({{transactionDetails.payerAccountType}})</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading">Payer Account IFSC</span>:
+            <span class="data-value"> {{transactionDetails.payerAccountIfsc}}</span>
+        </div>
+    </div>
+</div>
+<mat-divider></mat-divider>
+<div class="box">
+    <h3>Payee Information</h3>
+
+    <div class="">
+        <div class="flex">
+            <span class="data-heading"> Payee Name</span>:
+            <span class="data-value"> {{transactionDetails.payeeName}}</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading">Payee VPA</span>:
+            <span class="data-value"> {{transactionDetails.payeeVa}}</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading">Payee Mobile</span>:
+            <span class="data-value"> {{transactionDetails.payeeMobile}}</span>
+        </div>
+    </div>
+    <div class="">
+        <div class="flex">
+            <span class="data-heading">Payee Account (Type)</span>:
+            <span class="data-value"> {{transactionDetails.payeeAccount}}</span>
+            <span class="data-value" *ngIf="transactionDetails?.payeeAccountType">
+                ({{transactionDetails.payeeAccountType}})</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading">Payee Account IFSC</span>:
+            <span class="data-value"> {{transactionDetails.payeeAccountIfsc}}</span>
+        </div>
+    </div>
+</div>
+<mat-divider></mat-divider>
+<div class="box">
+    <h3>Other Details</h3>
+    <div class="">
+        <div class="flex">
+            <span class="data-heading">IRC</span>:
+            <span class="data-value"> {{transactionDetails.irc}}</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading"> Status</span>:
+            <span class="data-value"> {{txnStatusMapping[transactionDetails.status] || transactionDetails.status}}</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading">CBS Status (RC)</span>:
+            <span class="data-value"> {{transactionDetails.cbsReqStatus}}</span>
+            <span class="data-value" *ngIf="transactionDetails?.cbsRc"> ({{ transactionDetails?.cbsRc }})</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading">CBS Reversal Status (RC)</span>:
+            <span class="data-value"> {{transactionDetails.cbsRevStatus}}</span>
+            <span class="data-value" *ngIf="transactionDetails?.cbsRevRc"> ({{ transactionDetails?.cbsRevRc }})</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading">Risk Action</span>:
+            <span class="data-value"> {{transactionDetails.riskAction}}</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading">NPCI Error Code</span>:
+            <span class="data-value"> {{transactionDetails.npciErrCode}}</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading">NPCI Error Message</span>:
+            <span class="data-value"> {{transactionDetails.npciErrMessage}}</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading">Global Address Type</span>:
+            <span class="data-value"> {{transactionDetails.globalAddressType}}</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading">Extra Info</span>:
+            <span class="data-value"> {{transactionDetails.extrc}}</span>
+        </div>
+        <div class="flex">
+            <span class="data-heading">SS Channel</span>:
+            <span class="data-value"> {{transactionDetails.ssChannel}}</span>
+        </div>
+    </div>
+</div>
+
+
+
+<div>
+    <mat-dialog-actions align="end">
+        <button mat-raised-button mat-dialog-close class="btn-cancel">Cancel</button>
+    </mat-dialog-actions>
+</div>

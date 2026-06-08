@@ -1,0 +1,76 @@
+<div class="grid-container">
+    <mat-card>
+        <mat-panel-title>
+            <h3>Customer Information</h3>
+        </mat-panel-title>
+        <form [formGroup]="addForm">
+            <mat-form-field appearance="outline">
+                <mat-label>Block Type</mat-label>
+                <mat-select formControlName="type">
+                    <mat-option value="MOBILE_NUMBER">Mobile No.</mat-option>
+                    <mat-option value="VPA">VPA</mat-option>
+                    <mat-option value="ACCOUNT_NUMBER">Account No.</mat-option>
+                </mat-select>
+                <mat-error *ngIf="addForm.get('type')?.hasError('required')">
+                    Please select block type.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Block Value</mat-label>
+                <input matInput formControlName="value" maxlength="30" autocomplete="off"/>
+                <mat-error *ngIf="addForm.get('value')?.hasError('pattern')">
+                    Please enter valid block value!
+                </mat-error>
+                <mat-error *ngIf="addForm.get('value')?.hasError('required')">
+                    Please enter the block value.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Status</mat-label>
+                <mat-select formControlName="status">
+                    <mat-option value="A">Active</mat-option>
+                    <mat-option value="B">Block</mat-option>
+                </mat-select>
+                <mat-error *ngIf="addForm.get('status')?.hasError('required')">
+                    Please select status.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Block SMS</mat-label>
+                <mat-select formControlName="blockSMS">
+                    <mat-option value="A">Active</mat-option>
+                    <mat-option value="B">Block</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Transaction Type</mat-label>
+                <mat-select formControlName="txnType">
+                    <mat-option value="CREDIT">CREDIT</mat-option>
+                    <mat-option value="DEBIT">DEBIT</mat-option>
+                    <mat-option value="BOTH">BOTH</mat-option>
+                </mat-select>
+                <mat-error *ngIf="addForm.get('txnType')?.hasError('required')">
+                    Please select Txn type.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Reason</mat-label>
+                <input matInput formControlName="reason" maxlength="30" autocomplete="off"/>
+                <mat-error *ngIf="addForm.get('reason')?.hasError('pattern')">
+                    Reason can only contain letters, numbers, and dot!
+                </mat-error>
+            </mat-form-field>
+
+            <div>
+                <button type="submit" mat-raised-button class="form-btn" (click)="onSubmit()"
+                    *ngIf="!isView">Confirm</button>
+                <button mat-raised-button class="btn-cancel form-btn" (click)="onClose()">Back</button>
+            </div>
+        </form>
+    </mat-card>
+</div>

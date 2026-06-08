@@ -1,0 +1,5 @@
+<mat-spinner class="spinner" *ngIf="userService.spinnerVisibility | async" appNoRightClick></mat-spinner>
+<ng-container [ngSwitch]="layout">
+    <app-login *ngSwitchCase="Layouts.DEFAULT" appNoRightClick></app-login>
+    <app-navigation *ngSwitchCase="Layouts.SIDENAV" appNoRightClick></app-navigation>
+</ng-container>
